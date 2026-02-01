@@ -1,4 +1,18 @@
-@layer theme, base, primevue, components, utilities, app;
+/*@layer theme, base, primevue, components, utilities, app;*/
 
 @import "tailwindcss";
 @import "tailwindcss-primeui";
+
+@theme {
+    --color-brown-50: #f9f7f3;
+    --color-brown-100: #f1ede3;
+    --color-brown-200: #e6ddcc;
+    --color-brown-300: #d0bfa1;
+    --color-brown-400: #bda07a;
+    --color-brown-500: #af8960;
+    --color-brown-600: #a27854;
+    --color-brown-700: #876247;
+    --color-brown-800: #6e503e;
+    --color-brown-900: #5a4234;
+    --color-brown-950: #30221a;
+}

@@ -3,16 +3,18 @@ import "./assets/styles/main.scss"
 import { createApp } from 'vue'
 import App from './App.vue'
 import PrimeVue from 'primevue/config';
-import Aura from '@primeuix/themes/aura';
+import { PrimeVueTheme } from "@/theme.js";
+import 'primeicons/primeicons.css';
 
 const app = createApp(App);
 app.use(PrimeVue, {
     theme: {
-        preset: Aura,
+        preset: PrimeVueTheme,
         options: {
             darkModeSelector: 'none',
             cssLayer: {
                 name: 'primevue',
+                order: 'theme, base, primevue, components, utilities, app'
             }
         }
     }
