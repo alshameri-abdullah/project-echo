@@ -17,16 +17,7 @@ export default defineConfig({
   ],
   resolve: {
     alias: {
-      // This tells both Vite and Sass that "@" means the "src" folder
       '@': fileURLToPath(new URL('./src', import.meta.url))
-    }
-  },
-  css: {
-    preprocessorOptions: {
-      scss: {
-        additionalData: `@use "@/assets/styles/_variables.scss" as *;`,
-        api: 'modern-compiler'
-      }
     }
   }
 })

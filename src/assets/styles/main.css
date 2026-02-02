@@ -1,0 +1,11 @@
+/*@layer theme, base, primevue, components, utilities, app;*/
+
+@import "tailwindcss";
+@import "tailwindcss-primeui";
+@import "./theme.css";
+
+@layer base {
+    body{
+        background: var(--p-surface-200);
+    }
+}
