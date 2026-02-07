@@ -1,6 +1,7 @@
 import { defineStore } from 'pinia';
 import { computed, onUnmounted, ref } from 'vue';
 import { db } from '@/lib/firebase';
+import { timeAgo } from '@/utils/time';
 import {
   collection,
   doc,
@@ -42,10 +43,14 @@ export const useHistoryStore = defineStore('history', () => {
   );
 
   const unsubInteractions = onSnapshot(interactionsQuery, (snapshot) => {
-    interactions.value = snapshot.docs.map((doc) => ({
-      id: doc.id,
-      ...doc.data(),
-    }));
+    interactions.value = snapshot.docs.map((doc) => {
+      const data = doc.data();
+      return {
+        id: doc.id,
+        ...data,
+        time: data.createdAt ? timeAgo(data.createdAt) : '',
+      };
+    });
   });
 
   onUnmounted(() => {
