@@ -1,5 +1,9 @@
-<script setup></script>
+<script setup>
+import History from '@/components/History.vue';
+</script>
 
-<template></template>
+<template>
+  <History />
+</template>
 
 <style scoped></style>
