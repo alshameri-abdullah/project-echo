@@ -6,7 +6,7 @@ import Toolbox from '@/components/Toolbox.vue';
 <template>
   <div class="flex h-full">
     <History />
-    <div class="flex flex-1 flex-col">
+    <div class="flex flex-1 flex-col p-32">
       <div class="flex-1"></div>
       <Toolbox />
     </div>

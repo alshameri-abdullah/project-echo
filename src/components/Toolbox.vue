@@ -7,9 +7,8 @@ const { tools } = storeToRefs(useToolsStore());
 </script>
 
 <template>
-  <div class="section w-full">
-    <div class="section-content border-t">
-      <h2 class="section-label">Toolbox</h2>
+  <div class="flex w-full flex-col">
+    <div class="flex flex-col items-center">
       <div class="flex gap-4">
         <AppIconButton
           v-for="tool in tools"
