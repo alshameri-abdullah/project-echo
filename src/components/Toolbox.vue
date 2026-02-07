@@ -9,14 +9,19 @@ const { tools } = storeToRefs(useToolsStore());
 <template>
   <div class="flex w-full flex-col">
     <div class="flex flex-col items-center">
-      <div class="flex gap-4">
-        <AppIconButton
+      <div class="flex flex-wrap justify-center gap-4">
+        <div
           v-for="tool in tools"
           :key="tool.id"
-          variant="secondary"
-          size="xlarge"
-          :icon="tool.icon"
-        />
+          class="group/tool relative flex shrink-0 flex-col items-center"
+        >
+          <AppIconButton variant="secondary" size="xlarge" :icon="tool.icon" />
+          <span
+            class="absolute top-full mt-2 whitespace-nowrap font-mono tracking-wider text-stone-500 opacity-0 transition-opacity duration-200 group-hover/tool:opacity-100"
+          >
+            {{ tool.label }}
+          </span>
+        </div>
       </div>
     </div>
   </div>
