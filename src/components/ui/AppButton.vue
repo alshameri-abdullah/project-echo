@@ -16,7 +16,30 @@ const props = defineProps({
       return ['small', 'normal', 'large'].includes(value);
     },
   },
+  icon: {
+    type: String,
+    default: null,
+  },
+  iconPosition: {
+    type: String,
+    default: 'left',
+    validator(value) {
+      return ['top', 'bottom', 'left', 'right'].includes(value);
+    },
+  },
+  iconOnly: {
+    type: Boolean,
+    default: false,
+  },
 });
+
+const isVertical = computed(() =>
+  ['top', 'bottom'].includes(props.iconPosition)
+);
+
+const isAfter = computed(() =>
+  ['right', 'bottom'].includes(props.iconPosition)
+);
 
 const variants = {
   primary: {
@@ -37,9 +60,9 @@ const variants = {
 };
 
 const sizes = {
-  small: 'px-2.5 py-1.5 text-sm',
-  normal: 'px-3 py-1.75 text-base',
-  large: 'px-6 py-2 text-xl',
+  small: { face: 'px-2.5 py-1.5 text-sm', icon: 'size-4' },
+  normal: { face: 'px-3 py-1.75 text-base', icon: 'size-6' },
+  large: { face: 'px-6 py-2 text-xl', icon: 'size-8' },
 };
 
 const currentVariant = computed(
@@ -47,6 +70,7 @@ const currentVariant = computed(
 );
 
 const currentSize = computed(() => sizes[props.size] ?? sizes.normal);
+const currentIconSize = computed(() => currentSize.value.icon);
 </script>
 
 <template>
@@ -65,11 +89,29 @@ const currentSize = computed(() => sizes[props.size] ?? sizes.normal);
     <span
       :class="[
         currentVariant.face,
-        currentSize,
-        'ease-smooth relative block w-full -translate-y-1.5 transform rounded-sm border shadow-(--inset-highlight) transition-transform duration-500 will-change-transform group-hover:-translate-y-2 group-hover:duration-200 group-active:-translate-y-0.5 group-active:duration-75',
+        currentSize.face,
+        'ease-smooth relative flex w-full items-center justify-center -translate-y-1.5 transform rounded-sm border shadow-(--inset-highlight) transition-transform duration-500 will-change-transform group-hover:-translate-y-2 group-hover:duration-200 group-active:-translate-y-0.5 group-active:duration-75',
       ]"
     >
-      <slot />
+      <img
+        v-if="icon && iconOnly"
+        :src="icon"
+        alt=""
+        :class="currentIconSize"
+      />
+      <span
+        v-else-if="icon"
+        class="flex items-center justify-center gap-2"
+        :class="isVertical ? 'flex-col' : 'flex-row'"
+      >
+        <img
+          :src="icon"
+          alt=""
+          :class="[currentIconSize, { 'order-1': isAfter }]"
+        />
+        <span><slot /></span>
+      </span>
+      <slot v-else />
     </span>
   </button>
 </template>
