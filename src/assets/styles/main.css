@@ -24,10 +24,10 @@
 
 @layer components {
   .section {
-    @apply border-surface-300 flex flex-col;
+    @apply border-surface-300 bg-brown-100 flex flex-col;
 
     .section-content {
-      @apply p-8 border-surface-300;
+      @apply p-8 border-surface-300 flex flex-col gap-6;
     }
 
     .section-label {

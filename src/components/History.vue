@@ -46,10 +46,10 @@ const barSegments = [
 
 <template>
   <div
-    class="section bg-brown-100 scrollbar-hidden flex h-full w-96 flex-col overflow-y-auto border-r"
+    class="section scrollbar-hidden flex h-full w-96 flex-col overflow-y-auto border-r"
     id="history"
   >
-    <div class="section-content flex flex-col gap-6 border-b">
+    <div class="section-content border-b">
       <h2 class="section-label">Interaction History</h2>
       <div class="border-b border-stone-300 pb-4">
         <div class="font-mono text-4xl oldstyle-nums tabular-nums">
