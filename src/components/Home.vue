@@ -1,9 +1,16 @@
 <script setup>
 import History from '@/components/History.vue';
+import Toolbox from '@/components/Toolbox.vue';
 </script>
 
 <template>
-  <History />
+  <div class="flex h-full">
+    <History />
+    <div class="flex flex-1 flex-col">
+      <div class="flex-1"></div>
+      <Toolbox />
+    </div>
+  </div>
 </template>
 
 <style scoped></style>
