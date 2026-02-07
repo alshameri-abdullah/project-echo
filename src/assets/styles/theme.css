@@ -10,4 +10,7 @@
     --color-brown-800: #6e503e;
     --color-brown-900: #5a4234;
     --color-brown-950: #30221a;
+
+    --ease-smooth: cubic-bezier(.3, .7, .4, 1.5);
+    --inset-highlight: inset 0 1px 0 1px rgb(255 255 255 / 0.2);
 }
