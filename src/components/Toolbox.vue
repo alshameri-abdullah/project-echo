@@ -1,5 +1,5 @@
 <script setup>
-import AppButton from '@/components/ui/AppButton.vue';
+import AppIconButton from '@/components/ui/AppIconButton.vue';
 import { useToolsStore } from '@/stores/tools';
 import { storeToRefs } from 'pinia';
 
@@ -10,14 +10,13 @@ const { tools } = storeToRefs(useToolsStore());
   <div class="section w-full">
     <div class="section-content border-t">
       <h2 class="section-label">Toolbox</h2>
-      <div class="flex">
-        <AppButton
+      <div class="flex gap-4">
+        <AppIconButton
           v-for="tool in tools"
           :key="tool.id"
           variant="secondary"
-          size="large"
+          size="xlarge"
           :icon="tool.icon"
-          iconOnly
         />
       </div>
     </div>
