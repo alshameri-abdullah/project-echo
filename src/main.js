@@ -1,11 +1,13 @@
 import "./assets/styles/main.css"
 import { createApp } from 'vue'
+import { createPinia } from 'pinia'
 import App from './App.vue'
 import PrimeVue from 'primevue/config';
 import { PrimeVueTheme } from "@/theme.js";
 import 'primeicons/primeicons.css';
 
 const app = createApp(App);
+app.use(createPinia());
 app.use(PrimeVue, {
     theme: {
         preset: PrimeVueTheme,
