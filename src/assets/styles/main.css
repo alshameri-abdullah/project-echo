@@ -16,6 +16,12 @@
   }
 }
 
+@utility scrollbar-hidden {
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
 @layer components {
   .section {
     @apply border-surface-300 flex flex-col;
