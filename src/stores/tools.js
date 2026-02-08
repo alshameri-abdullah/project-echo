@@ -31,6 +31,8 @@ const icons = {
 
 export const useToolsStore = defineStore('tools', () => {
   const tools = ref([]);
+  const reaction = ref(null);
+  let reactionTimeout = null;
 
   const toolsQuery = query(collection(db, 'tools'), orderBy('order'));
 
@@ -42,9 +44,19 @@ export const useToolsStore = defineStore('tools', () => {
     }));
   });
 
+  function triggerReaction(type) {
+    if (reactionTimeout) clearTimeout(reactionTimeout);
+    reaction.value = type;
+    reactionTimeout = setTimeout(() => {
+      reaction.value = null;
+      reactionTimeout = null;
+    }, 2000);
+  }
+
   onUnmounted(() => {
     unsubTools();
+    if (reactionTimeout) clearTimeout(reactionTimeout);
   });
 
-  return { tools };
+  return { tools, reaction, triggerReaction };
 });

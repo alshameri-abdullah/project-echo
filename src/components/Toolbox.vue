@@ -3,7 +3,8 @@ import AppIconButton from '@/components/ui/AppIconButton.vue';
 import { useToolsStore } from '@/stores/tools';
 import { storeToRefs } from 'pinia';
 
-const { tools } = storeToRefs(useToolsStore());
+const toolsStore = useToolsStore();
+const { tools } = storeToRefs(toolsStore);
 </script>
 
 <template>
@@ -15,7 +16,12 @@ const { tools } = storeToRefs(useToolsStore());
           :key="tool.id"
           class="group/tool relative flex shrink-0 flex-col items-center"
         >
-          <AppIconButton variant="secondary" size="xlarge" :icon="tool.icon" />
+          <AppIconButton
+            variant="secondary"
+            size="xlarge"
+            :icon="tool.icon"
+            @click="toolsStore.triggerReaction(tool.type)"
+          />
           <span
             class="absolute top-full mt-2 whitespace-nowrap font-mono tracking-wider text-stone-500 opacity-0 transition-opacity duration-200 group-hover/tool:opacity-100"
           >
