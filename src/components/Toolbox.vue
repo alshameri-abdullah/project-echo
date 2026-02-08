@@ -20,7 +20,7 @@ const { tools } = storeToRefs(toolsStore);
             variant="secondary"
             size="xlarge"
             :icon="tool.icon"
-            @click="toolsStore.triggerReaction(tool.type)"
+            @click="toolsStore.triggerReaction(tool)"
           />
           <span
             class="absolute top-full mt-2 whitespace-nowrap font-mono tracking-wider text-stone-500 opacity-0 transition-opacity duration-200 group-hover/tool:opacity-100"

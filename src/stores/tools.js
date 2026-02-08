@@ -1,7 +1,19 @@
 import { defineStore } from 'pinia';
 import { onUnmounted, ref } from 'vue';
 import { db } from '@/lib/firebase';
-import { collection, onSnapshot, orderBy, query } from 'firebase/firestore';
+import { getLocalId } from '@/utils/local-id';
+import { useCharacterStore } from '@/stores/character';
+import {
+  addDoc,
+  collection,
+  doc,
+  increment,
+  onSnapshot,
+  orderBy,
+  query,
+  serverTimestamp,
+  setDoc,
+} from 'firebase/firestore';
 
 import kissIcon from '@/assets/icons/tools/kiss.svg';
 import hugIcon from '@/assets/icons/tools/hug.svg';
@@ -44,13 +56,32 @@ export const useToolsStore = defineStore('tools', () => {
     }));
   });
 
-  function triggerReaction(type) {
+  function triggerReaction(tool) {
+    const characterStore = useCharacterStore();
+    const character = characterStore.activeCharacter;
+    if (!character) return;
+
     if (reactionTimeout) clearTimeout(reactionTimeout);
-    reaction.value = type;
+    reaction.value = tool.type;
     reactionTimeout = setTimeout(() => {
       reaction.value = null;
       reactionTimeout = null;
     }, 2000);
+
+    const charId = character.id;
+
+    addDoc(collection(db, 'characters', charId, 'interactions'), {
+      tool: tool.label,
+      type: tool.type,
+      uid: getLocalId(),
+      createdAt: serverTimestamp(),
+    });
+
+    setDoc(
+      doc(db, 'characters', charId, 'stats', 'totals'),
+      { [tool.type]: increment(1) },
+      { merge: true },
+    );
   }
 
   onUnmounted(() => {
