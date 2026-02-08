@@ -8,7 +8,7 @@ import Toolbox from '@/components/Toolbox.vue';
   <div class="flex h-full">
     <History />
     <div class="flex flex-1 flex-col p-32">
-      <div class="flex flex-1 items-end justify-center">
+      <div class="flex flex-1 items-center justify-center">
         <Character />
       </div>
       <Toolbox />
