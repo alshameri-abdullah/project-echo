@@ -1,4 +1,5 @@
 <script setup>
+import Character from '@/components/Character.vue';
 import History from '@/components/History.vue';
 import Toolbox from '@/components/Toolbox.vue';
 </script>
@@ -7,7 +8,9 @@ import Toolbox from '@/components/Toolbox.vue';
   <div class="flex h-full">
     <History />
     <div class="flex flex-1 flex-col p-32">
-      <div class="flex-1"></div>
+      <div class="flex flex-1 items-end justify-center">
+        <Character />
+      </div>
       <Toolbox />
     </div>
   </div>
