@@ -1,14 +1,19 @@
 <script setup>
-import { shallowRef } from 'vue';
+import { computed } from 'vue';
+import { storeToRefs } from 'pinia';
+import { useCharacterStore } from '@/stores/character';
+import CharacterMale1 from './characters/CharacterMale1.vue';
+import CharacterFemale1 from './characters/CharacterFemale1.vue';
 
-const modules = import.meta.glob('./characters/Character*.vue', { eager: true });
-const characters = Object.values(modules).map((m) => m.default);
+const characterStore = useCharacterStore();
+const { activeCharacter } = storeToRefs(characterStore);
 
-const ActiveCharacter = shallowRef(
-  characters[Math.floor(Math.random() * characters.length)],
-);
+const ActiveComponent = computed(() => {
+  if (!activeCharacter.value) return null;
+  return activeCharacter.value.gender === 'male' ? CharacterMale1 : CharacterFemale1;
+});
 </script>
 
 <template>
-  <component :is="ActiveCharacter" v-if="ActiveCharacter" />
+  <component :is="ActiveComponent" v-if="ActiveComponent" />
 </template>
