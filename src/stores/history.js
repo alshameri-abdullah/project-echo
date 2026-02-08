@@ -1,7 +1,9 @@
 import { defineStore } from 'pinia';
-import { computed, onUnmounted, ref } from 'vue';
+import { computed, onUnmounted, ref, watch } from 'vue';
 import { db } from '@/lib/firebase';
 import { timeAgo } from '@/utils/time';
+import { getLocalId } from '@/utils/local-id';
+import { useCharacterStore } from '@/stores/character';
 import {
   collection,
   doc,
@@ -27,35 +29,65 @@ export const useHistoryStore = defineStore('history', () => {
     );
   });
 
-  // Listen to stats/totals document
-  const unsubStats = onSnapshot(doc(db, 'stats', 'totals'), (snapshot) => {
-    if (snapshot.exists()) {
-      const data = snapshot.data();
-      totals.value = [data.kind ?? 0, data.normal ?? 0, data.mean ?? 0];
-    }
-  });
+  const characterStore = useCharacterStore();
+  const localId = getLocalId();
 
-  // Listen to recent interactions, ordered by newest first
-  const interactionsQuery = query(
-    collection(db, 'interactions'),
-    orderBy('createdAt', 'desc'),
-    limit(20),
+  let unsubStats = null;
+  let unsubInteractions = null;
+
+  function cleanup() {
+    if (unsubStats) unsubStats();
+    if (unsubInteractions) unsubInteractions();
+    unsubStats = null;
+    unsubInteractions = null;
+  }
+
+  watch(
+    () => characterStore.activeCharacter,
+    (character) => {
+      cleanup();
+
+      if (!character) return;
+
+      const charId = character.id;
+
+      // Listen to characters/{charId}/stats/totals
+      unsubStats = onSnapshot(
+        doc(db, 'characters', charId, 'stats', 'totals'),
+        (snapshot) => {
+          if (snapshot.exists()) {
+            const data = snapshot.data();
+            totals.value = [data.kind ?? 0, data.neutral ?? 0, data.mean ?? 0];
+          } else {
+            totals.value = [0, 0, 0];
+          }
+        },
+      );
+
+      // Listen to characters/{charId}/interactions
+      const interactionsQuery = query(
+        collection(db, 'characters', charId, 'interactions'),
+        orderBy('createdAt', 'desc'),
+        limit(20),
+      );
+
+      unsubInteractions = onSnapshot(interactionsQuery, (snapshot) => {
+        interactions.value = snapshot.docs.map((d) => {
+          const data = d.data();
+          return {
+            id: d.id,
+            ...data,
+            time: data.createdAt ? timeAgo(data.createdAt) : '',
+            isOwn: data.uid === localId,
+          };
+        });
+      });
+    },
+    { immediate: true },
   );
 
-  const unsubInteractions = onSnapshot(interactionsQuery, (snapshot) => {
-    interactions.value = snapshot.docs.map((doc) => {
-      const data = doc.data();
-      return {
-        id: doc.id,
-        ...data,
-        time: data.createdAt ? timeAgo(data.createdAt) : '',
-      };
-    });
-  });
-
   onUnmounted(() => {
-    unsubStats();
-    unsubInteractions();
+    cleanup();
   });
 
   return { totals, interactions, total, percentages };

@@ -1,9 +1,13 @@
 <script setup>
 import { storeToRefs } from 'pinia';
 import { useHistoryStore } from '@/stores/history';
+import { useCharacterStore } from '@/stores/character';
 
 const historyStore = useHistoryStore();
 const { totals, interactions, total, percentages } = storeToRefs(historyStore);
+
+const characterStore = useCharacterStore();
+const { activeCharacter } = storeToRefs(characterStore);
 
 const colors = {
   kind: {
@@ -20,7 +24,7 @@ const colors = {
     barEdge: 'bg-red-600',
     barFace: 'bg-red-500',
   },
-  normal: {
+  neutral: {
     border: 'border-stone-500',
     text: 'text-stone-500',
     barBg: 'bg-stone-300',
@@ -29,17 +33,17 @@ const colors = {
   },
 };
 
-const getColor = (type) => colors[type] ?? colors.normal;
+const getColor = (type) => colors[type] ?? colors.neutral;
 
 const stats = [
   { type: 'kind', label: 'kind', prefix: 'people were', suffix: 'to them' },
-  { type: 'normal', label: "didn't care", prefix: 'people', suffix: '' },
+  { type: 'neutral', label: "didn't care", prefix: 'people', suffix: '' },
   { type: 'mean', label: 'mean', prefix: 'people were', suffix: 'to them' },
 ];
 
 const barSegments = [
   { type: 'kind', index: 0 },
-  { type: 'normal', index: 1 },
+  { type: 'neutral', index: 1 },
   { type: 'mean', index: 2 },
 ];
 </script>
@@ -50,13 +54,16 @@ const barSegments = [
     id="history"
   >
     <div class="section-content border-b">
-      <h2 class="section-label">Interaction History</h2>
+      <h2 class="section-label">
+        {{ activeCharacter?.name ?? 'Character' }}
+      </h2>
+      <h3 class="section-label text-neutral-500">Interaction History</h3>
       <div class="border-b border-stone-300 pb-4">
         <div class="font-mono text-4xl oldstyle-nums tabular-nums">
           {{ total }}
         </div>
         <div class="font-mono text-neutral-500">
-          People have interacted with this person.
+          People have interacted with {{ activeCharacter?.name ?? 'this person' }}.
         </div>
       </div>
 
@@ -116,6 +123,10 @@ const barSegments = [
             {{ interaction.tool }}
           </div>
           <div class="text-stone-400">
+            <span :class="interaction.isOwn ? 'text-stone-900' : ''">
+              {{ interaction.isOwn ? 'you' : 'someone else' }}
+            </span>
+            <span class="mx-1">&middot;</span>
             {{ interaction.time }}
           </div>
         </div>
