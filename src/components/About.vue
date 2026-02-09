@@ -8,7 +8,7 @@ const router = useRouter();
   <div class="flex flex-1 justify-center overflow-y-auto lg:min-h-0">
     <div class="w-full max-w-2xl px-6 py-8 sm:px-8 sm:py-12 lg:py-16">
       <button
-        class="group mb-8 flex items-center gap-1.5 font-mono text-xs tracking-widest text-black/40 uppercase transition-colors hover:text-black/60"
+        class="group mb-8 flex cursor-pointer items-center gap-1.5 font-mono text-xs tracking-widest text-black/40 uppercase transition-colors hover:text-black/60"
         @click="router.back()"
       >
         <span
@@ -194,6 +194,17 @@ const router = useRouter();
           </li>
         </ul>
       </section>
+
+      <button
+        class="group flex cursor-pointer items-center gap-1.5 font-mono text-xs tracking-widest text-black/40 uppercase transition-colors hover:text-black/60"
+        @click="router.back()"
+      >
+        <span
+          class="inline-block transition-transform group-hover:-translate-x-0.5"
+          >&larr;</span
+        >
+        Back to the experiment
+      </button>
     </div>
   </div>
 </template>
