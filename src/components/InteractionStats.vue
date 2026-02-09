@@ -14,7 +14,11 @@ const stats = [
     label: 'kind',
     prefix: 'people were',
   },
-  { type: 'neutral', label: "didn't care", prefix: 'people' },
+  {
+    type: 'neutral',
+    label: 'neutral',
+    prefix: 'people were',
+  },
   {
     type: 'mean',
     label: 'mean',
@@ -32,10 +36,9 @@ const barSegments = [
 <template>
   <div class="section">
     <div class="section-content border-b">
-      <h3 class="section-label text-neutral-500">Interaction History</h3>
       <div class="border-b border-stone-300 pb-4">
-        <div class="font-mono text-lg lg:text-2xl text-stone-500">
-          this is
+        <div class="font-mono text-lg text-stone-500 lg:text-2xl">
+          This is
           <span class="font-semibold text-black">
             {{ activeCharacter?.name ?? 'Character' }}
           </span>
@@ -52,7 +55,7 @@ const barSegments = [
         <div class="flex flex-col gap-2">
           <div v-for="(stat, index) in stats" :key="stat.type">
             <span
-              class="text-lg lg:text-2xl font-bold oldstyle-nums"
+              class="text-lg font-bold oldstyle-nums lg:text-2xl"
               :class="getColor(stat.type).text"
             >
               {{ totals[index] ?? 0 }}

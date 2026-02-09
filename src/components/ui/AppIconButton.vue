@@ -6,7 +6,7 @@ const props = defineProps({
     type: String,
     default: 'primary',
     validator(value) {
-      return ['primary', 'secondary', 'danger'].includes(value);
+      return ['primary', 'kind', 'neutral', 'mean', 'danger'].includes(value);
     },
   },
   size: {
@@ -28,10 +28,20 @@ const variants = {
     edge: 'bg-primary-600 border-primary-900',
     face: 'text-primary-950 bg-primary-500 border-primary-800',
   },
-  secondary: {
+  kind: {
+    shadow: 'bg-black/20',
+    edge: 'bg-green-200 border-surface-700',
+    face: 'text-surface-700 bg-green-100 border-surface-600',
+  },
+  neutral: {
     shadow: 'bg-black/20',
     edge: 'bg-stone-300 border-surface-700',
     face: 'text-surface-700 bg-stone-200 border-surface-600',
+  },
+  mean: {
+    shadow: 'bg-black/20',
+    edge: 'bg-red-200 border-surface-700',
+    face: 'text-surface-700 bg-red-100 border-surface-600',
   },
   danger: {
     shadow: 'bg-black/20',
