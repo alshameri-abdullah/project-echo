@@ -95,6 +95,7 @@ const stateClass = computed(() => reaction.value ?? 'idle');
 .character {
   overflow: visible;
   height: 540px;
+  max-height: 100%;
   width: auto;
   margin-bottom: 2rem;
 }

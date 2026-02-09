@@ -15,5 +15,5 @@ const ActiveComponent = computed(() => {
 </script>
 
 <template>
-  <component :is="ActiveComponent" v-if="ActiveComponent" />
+  <component :is="ActiveComponent" v-if="ActiveComponent" class="h-full" />
 </template>

@@ -50,7 +50,7 @@ const barSegments = [
 
 <template>
   <div
-    class="section scrollbar-hidden flex h-full w-96 flex-col overflow-y-auto border-r"
+    class="section scrollbar-hidden flex w-full flex-col border-t lg:h-full lg:w-96 lg:overflow-y-auto lg:border-t-0 lg:border-r"
     id="history"
   >
     <div class="section-content border-b">

@@ -1,10 +1,12 @@
 <script setup>
+import { useMediaQuery } from '@vueuse/core';
 import AppIconButton from '@/components/ui/AppIconButton.vue';
 import { useToolsStore } from '@/stores/tools';
 import { storeToRefs } from 'pinia';
 
 const toolsStore = useToolsStore();
 const { tools } = storeToRefs(toolsStore);
+const isDesktop = useMediaQuery('(min-width: 1024px)');
 </script>
 
 <template>
@@ -18,7 +20,7 @@ const { tools } = storeToRefs(toolsStore);
         >
           <AppIconButton
             variant="secondary"
-            size="xlarge"
+            :size="isDesktop ? 'xlarge' : 'large'"
             :icon="tool.icon"
             @click="toolsStore.triggerReaction(tool)"
           />
