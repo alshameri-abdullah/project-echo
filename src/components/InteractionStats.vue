@@ -12,21 +12,9 @@ const clickSound = new Audio('/sounds/click.mp3');
 const playClick = () => clickSound.cloneNode().play();
 
 const stats = [
-  {
-    type: 'kind',
-    label: 'kind',
-    prefix: 'people were',
-  },
-  {
-    type: 'neutral',
-    label: 'neutral',
-    prefix: 'people were',
-  },
-  {
-    type: 'mean',
-    label: 'mean',
-    prefix: 'people were',
-  },
+  { type: 'kind', label: 'kind' },
+  { type: 'neutral', label: 'neutral' },
+  { type: 'mean', label: 'mean' },
 ];
 
 const barSegments = [
@@ -43,14 +31,13 @@ const barSegments = [
         <div class="font-mono text-lg text-stone-500 lg:text-2xl">
           This is
           <span class="font-semibold text-black">
-            {{ activeCharacter?.name ?? 'Character' }}
-          </span>
-          ,
+            {{ activeCharacter?.name ?? 'Character' }} </span
+          >. People have interacted with
+          {{ activeCharacter?.name ?? 'this person' }}
           <span class="font-semibold text-black oldstyle-nums tabular-nums">
             {{ total }}
           </span>
-          People have interacted with
-          {{ activeCharacter?.name ?? 'this person' }}.
+          times.
         </div>
       </div>
 
@@ -63,7 +50,7 @@ const barSegments = [
             >
               {{ totals[index] ?? 0 }}
             </span>
-            {{ stat.prefix }}
+            times people were
             <span class="font-bold" :class="getColor(stat.type).text">{{
               stat.label
             }}</span>
