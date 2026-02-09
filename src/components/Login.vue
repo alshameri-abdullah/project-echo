@@ -18,7 +18,7 @@ async function handleLogin() {
 </script>
 
 <template>
-  <div class="flex h-screen items-center justify-center">
+  <div class="flex flex-1 items-center justify-center">
     <form class="flex w-80 flex-col gap-4" @submit.prevent="handleLogin">
       <h1 class="text-center text-2xl font-bold">Sign In</h1>
       <InputText v-model="email" type="email" placeholder="Email" />

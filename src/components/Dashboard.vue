@@ -12,7 +12,7 @@ async function handleSignOut() {
 </script>
 
 <template>
-  <div class="relative h-full">
+  <div class="relative flex-1">
     <Button
       icon="pi pi-sign-out"
       severity="secondary"

@@ -6,7 +6,7 @@ import Toolbox from '@/components/Toolbox.vue';
 </script>
 
 <template>
-  <div class="flex min-h-full flex-col lg:h-full lg:flex-row">
+  <div class="flex flex-1 flex-col lg:min-h-0 lg:flex-row">
     <!-- Wrapper: invisible on mobile (contents), sidebar on desktop -->
     <div
       class="contents lg:flex lg:flex-col lg:h-full lg:w-96 lg:overflow-y-auto lg:border-r lg:bg-brown-100 lg:border-surface-300 scrollbar-hidden"
