@@ -7,6 +7,7 @@ import {
   collection,
   doc,
   getDoc,
+  increment,
   serverTimestamp,
   setDoc,
 } from 'firebase/firestore';
@@ -37,6 +38,7 @@ export const useSessionStore = defineStore('session', () => {
         uid: getLocalId(),
         startedAt: serverTimestamp(),
         lastActiveAt: serverTimestamp(),
+        totalInteractions: 0,
         character: character.gender,
         statSnapshot: {
           kind: stats.kind ?? 0,
@@ -50,7 +52,11 @@ export const useSessionStore = defineStore('session', () => {
 
   function touchLastActive() {
     if (_sessionDocRef) {
-      setDoc(_sessionDocRef, { lastActiveAt: serverTimestamp() }, { merge: true });
+      setDoc(
+        _sessionDocRef,
+        { lastActiveAt: serverTimestamp(), totalInteractions: increment(1) },
+        { merge: true },
+      );
     }
   }
 
