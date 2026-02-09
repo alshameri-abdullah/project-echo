@@ -62,11 +62,15 @@ const currentVariant = computed(
 );
 
 const currentSize = computed(() => sizes[props.size] ?? sizes.normal);
+
+const clickSound = new Audio('/sounds/click.mp3');
+const playClick = () => clickSound.cloneNode().play();
 </script>
 
 <template>
   <button
     class="group relative overflow-visible rounded-full transition-all duration-300"
+    @click="playClick"
   >
     <span
       :class="[

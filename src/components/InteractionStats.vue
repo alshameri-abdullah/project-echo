@@ -8,6 +8,9 @@ const { totals, total, percentages } = storeToRefs(useHistoryStore());
 const { activeCharacter } = storeToRefs(useCharacterStore());
 const { getColor } = useInteractionColors();
 
+const clickSound = new Audio('/sounds/click.mp3');
+const playClick = () => clickSound.cloneNode().play();
+
 const stats = [
   {
     type: 'kind',
@@ -71,7 +74,8 @@ const barSegments = [
           <span
             v-for="seg in barSegments"
             :key="seg.type"
-            class="group relative h-full"
+            class="group relative h-full cursor-pointer"
+            @click="playClick"
             :class="getColor(seg.type).barBg"
             :style="{ width: `${percentages[seg.index]}%` }"
           >
