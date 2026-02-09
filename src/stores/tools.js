@@ -3,8 +3,8 @@ import { onUnmounted, ref } from 'vue';
 import { db } from '@/lib/firebase';
 import { getLocalId } from '@/utils/local-id';
 import { useCharacterStore } from '@/stores/character';
+import { useSessionStore } from '@/stores/session';
 import {
-  addDoc,
   collection,
   doc,
   increment,
@@ -12,7 +12,7 @@ import {
   orderBy,
   query,
   serverTimestamp,
-  setDoc,
+  writeBatch,
 } from 'firebase/firestore';
 
 import kissIcon from '@/assets/icons/tools/kiss.svg';
@@ -58,6 +58,7 @@ export const useToolsStore = defineStore('tools', () => {
 
   function triggerReaction(tool) {
     const characterStore = useCharacterStore();
+    const sessionStore = useSessionStore();
     const character = characterStore.activeCharacter;
     if (!character) return;
 
@@ -69,19 +70,25 @@ export const useToolsStore = defineStore('tools', () => {
     }, 2000);
 
     const charId = character.id;
+    const batch = writeBatch(db);
 
-    addDoc(collection(db, 'characters', charId, 'interactions'), {
+    batch.set(doc(collection(db, 'characters', charId, 'interactions')), {
       tool: tool.label,
       type: tool.type,
       uid: getLocalId(),
+      sessionId: sessionStore.sessionId,
       createdAt: serverTimestamp(),
     });
 
-    setDoc(
+    batch.set(
       doc(db, 'characters', charId, 'stats', 'totals'),
       { [tool.type]: increment(1) },
       { merge: true },
     );
+
+    batch.commit();
+
+    sessionStore.touchLastActive();
   }
 
   onUnmounted(() => {

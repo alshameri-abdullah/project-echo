@@ -3,6 +3,9 @@ import Character from '@/components/Character.vue';
 import InteractionStats from '@/components/InteractionStats.vue';
 import RecentInteractions from '@/components/RecentInteractions.vue';
 import Toolbox from '@/components/Toolbox.vue';
+import { useSessionStore } from '@/stores/session';
+
+useSessionStore();
 </script>
 
 <template>
