@@ -1,10 +1,12 @@
 <script setup>
 import { computed, ref } from 'vue';
 import { useMediaQuery } from '@vueuse/core';
+import { useI18n } from 'vue-i18n';
 import AppIconButton from '@/components/ui/AppIconButton.vue';
 import { useToolsStore } from '@/stores/tools';
 import { storeToRefs } from 'pinia';
 
+const { t, locale } = useI18n();
 const toolsStore = useToolsStore();
 const { tools } = storeToRefs(toolsStore);
 const isDesktop = useMediaQuery('(min-width: 1024px)');
@@ -28,8 +30,6 @@ const groupedTools = computed(() =>
     .map((type) => tools.value.filter((t) => t.type === type))
     .filter((group) => group.length > 0)
 );
-
-console.log(groupedTools.value);
 </script>
 
 <template>
@@ -56,7 +56,7 @@ console.log(groupedTools.value);
                   activeLabel === tool.id ? 'opacity-100' : 'opacity-0 group-hover/tool:opacity-100',
                 ]"
               >
-                {{ tool.label }}
+                {{ tool[`label_${locale}`] || t(`tools.${tool.name}`) }}
               </span>
             </div>
           </div>

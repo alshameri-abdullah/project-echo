@@ -12,7 +12,7 @@ useSessionStore();
   <div class="flex flex-1 flex-col lg:min-h-0 lg:flex-row">
     <!-- Wrapper: invisible on mobile (contents), sidebar on desktop -->
     <div
-      class="contents lg:flex lg:flex-col lg:h-full lg:w-96 lg:overflow-y-auto lg:border-r lg:bg-brown-100 lg:border-surface-300 scrollbar-hidden"
+      class="contents lg:flex lg:flex-col lg:h-full lg:w-96 lg:overflow-y-auto lg:border-e lg:bg-brown-100 lg:border-surface-300 scrollbar-hidden"
     >
       <InteractionStats class="order-1 lg:order-none" />
       <RecentInteractions class="order-3 lg:order-none" />

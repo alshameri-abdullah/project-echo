@@ -1,10 +1,12 @@
 <script setup>
-import { ref } from 'vue';
-import { useRouter } from 'vue-router';
+import { ref, computed } from 'vue';
+import { useRouter, useRoute } from 'vue-router';
 import { useAuthStore } from '@/stores/auth';
 
 const router = useRouter();
+const route = useRoute();
 const authStore = useAuthStore();
+const locale = computed(() => route.params.locale || 'en');
 
 const email = ref('');
 const password = ref('');
@@ -12,7 +14,7 @@ const password = ref('');
 async function handleLogin() {
   await authStore.signIn(email.value, password.value);
   if (authStore.isAuthenticated) {
-    router.push('/dashboard');
+    router.push(`/${locale.value}/dashboard`);
   }
 }
 </script>

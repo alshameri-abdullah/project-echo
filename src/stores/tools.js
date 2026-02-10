@@ -73,7 +73,7 @@ export const useToolsStore = defineStore('tools', () => {
     const batch = writeBatch(db);
 
     batch.set(doc(collection(db, 'characters', charId, 'interactions')), {
-      tool: tool.label,
+      tool: tool.name,
       type: tool.type,
       uid: getLocalId(),
       sessionId: sessionStore.sessionId,

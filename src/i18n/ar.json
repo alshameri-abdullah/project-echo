@@ -1,0 +1,42 @@
+{
+  "stats": {
+    "thisIs": "هذا هو",
+    "characterFallback": "الشخصية",
+    "personFallback": "هذا الشخص",
+    "interactedWith": "تفاعل الناس مع",
+    "times": "مرة.",
+    "timesPeopleWere": "مرة كان الناس",
+    "kind": "لطيفين",
+    "neutral": "محايدين",
+    "mean": "قاسيين"
+  },
+  "recentInteractions": {
+    "title": "التفاعلات الأخيرة",
+    "you": "أنت",
+    "someoneElse": "شخص آخر"
+  },
+  "tools": {
+    "kiss": "قبلة",
+    "hug": "عناق",
+    "heal": "علاج",
+    "rose": "وردة",
+    "wave": "تلويح",
+    "water": "ماء",
+    "eyes": "نظرة",
+    "insult": "إهانة",
+    "punch": "لكمة",
+    "bolt": "صاعقة",
+    "stab": "طعنة"
+  },
+  "footer": {
+    "madeBy": "صنع بواسطة",
+    "asParFor": "كبحث عملي لـ",
+    "knowMore": "اعرف المزيد عن هذا البحث"
+  },
+  "time": {
+    "secondsAgo": "منذ {n} ث",
+    "minutesAgo": "منذ {n} د",
+    "hoursAgo": "منذ {n} س",
+    "daysAgo": "منذ {n} ي"
+  }
+}

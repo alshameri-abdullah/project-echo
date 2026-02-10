@@ -1,0 +1,42 @@
+{
+  "stats": {
+    "thisIs": "This is",
+    "characterFallback": "Character",
+    "personFallback": "this person",
+    "interactedWith": "People have interacted with",
+    "times": "times.",
+    "timesPeopleWere": "times people were",
+    "kind": "kind",
+    "neutral": "neutral",
+    "mean": "mean"
+  },
+  "recentInteractions": {
+    "title": "Recent Interactions",
+    "you": "you",
+    "someoneElse": "someone else"
+  },
+  "tools": {
+    "kiss": "kiss",
+    "hug": "hug",
+    "heal": "heal",
+    "rose": "rose",
+    "wave": "wave",
+    "water": "water",
+    "eyes": "eyes",
+    "insult": "insult",
+    "punch": "punch",
+    "bolt": "bolt",
+    "stab": "stab"
+  },
+  "footer": {
+    "madeBy": "made by",
+    "asParFor": "as a PaR for",
+    "knowMore": "Know more about this research"
+  },
+  "time": {
+    "secondsAgo": "{n}s ago",
+    "minutesAgo": "{n}m ago",
+    "hoursAgo": "{n}h ago",
+    "daysAgo": "{n}d ago"
+  }
+}

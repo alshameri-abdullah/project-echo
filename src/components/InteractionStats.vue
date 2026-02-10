@@ -1,20 +1,25 @@
 <script setup>
+import { computed } from 'vue';
 import { storeToRefs } from 'pinia';
+import { useI18n } from 'vue-i18n';
 import { useHistoryStore } from '@/stores/history';
 import { useCharacterStore } from '@/stores/character';
 import { useInteractionColors } from '@/composables/useInteractionColors';
 
+const { t, locale } = useI18n();
 const { totals, total, percentages } = storeToRefs(useHistoryStore());
 const { activeCharacter } = storeToRefs(useCharacterStore());
 const { getColor } = useInteractionColors();
+
+const charName = computed(() => activeCharacter.value?.[`name_${locale.value}`] ?? activeCharacter.value?.name);
 
 const clickSound = new Audio('/sounds/click.mp3');
 const playClick = () => clickSound.cloneNode().play();
 
 const stats = [
-  { type: 'kind', label: 'kind' },
-  { type: 'neutral', label: 'neutral' },
-  { type: 'mean', label: 'mean' },
+  { type: 'kind', labelKey: 'stats.kind', index: 0 },
+  { type: 'neutral', labelKey: 'stats.neutral', index: 1 },
+  { type: 'mean', labelKey: 'stats.mean', index: 2 },
 ];
 
 const barSegments = [
@@ -29,30 +34,30 @@ const barSegments = [
     <div class="section-content border-b">
       <div class="border-b border-stone-300 pb-4">
         <div class="font-mono text-lg text-stone-500 lg:text-2xl">
-          This is
+          {{ t('stats.thisIs') }}
           <span class="font-semibold text-black">
-            {{ activeCharacter?.name ?? 'Character' }} </span
-          >. People have interacted with
-          {{ activeCharacter?.name ?? 'this person' }}
+            {{ charName ?? t('stats.characterFallback') }} </span
+          >. {{ t('stats.interactedWith') }}
+          {{ charName ?? t('stats.personFallback') }}
           <span class="font-semibold text-black oldstyle-nums tabular-nums">
             {{ total }}
           </span>
-          times.
+          {{ t('stats.times') }}
         </div>
       </div>
 
       <div class="flex flex-col gap-6 font-mono text-base lg:text-xl">
         <div class="flex flex-col gap-2">
-          <div v-for="(stat, index) in stats" :key="stat.type">
+          <div v-for="stat in stats" :key="stat.type">
             <span
               class="text-lg font-bold oldstyle-nums lg:text-2xl"
               :class="getColor(stat.type).text"
             >
-              {{ totals[index] ?? 0 }}
+              {{ totals[stat.index] ?? 0 }}
             </span>
-            times people were
+            {{ t('stats.timesPeopleWere') }}
             <span class="font-bold" :class="getColor(stat.type).text">{{
-              stat.label
+              t(stat.labelKey)
             }}</span>
           </div>
         </div>

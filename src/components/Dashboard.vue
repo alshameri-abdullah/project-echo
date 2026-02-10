@@ -1,13 +1,16 @@
 <script setup>
-import { useRouter } from 'vue-router';
+import { useRouter, useRoute } from 'vue-router';
 import { useAuthStore } from '@/stores/auth';
+import { computed } from 'vue';
 
 const router = useRouter();
+const route = useRoute();
 const authStore = useAuthStore();
+const locale = computed(() => route.params.locale || 'en');
 
 async function handleSignOut() {
   await authStore.signOut();
-  router.push('/login');
+  router.push(`/${locale.value}/login`);
 }
 </script>
 
@@ -18,7 +21,7 @@ async function handleSignOut() {
       severity="secondary"
       text
       rounded
-      class="absolute right-4 top-4"
+      class="absolute end-4 top-4"
       @click="handleSignOut"
     />
     <h1>Dashboard</h1>
