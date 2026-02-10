@@ -1,6 +1,7 @@
 {
   "stats": {
-    "thisIs": "This is",
+    "thisIs_male": "This is",
+    "thisIs_female": "This is",
     "characterFallback": "Character",
     "personFallback": "this person",
     "interactedWith": "People have interacted with",

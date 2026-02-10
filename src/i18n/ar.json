@@ -1,8 +1,9 @@
 {
   "stats": {
-    "thisIs": "هذا هو",
+    "thisIs_male": "هذا هو",
+    "thisIs_female": "هذه هي",
     "characterFallback": "الشخصية",
-    "personFallback": "هذا الشخص",
+    "personFallback": "هذه الشخصية",
     "interactedWith": "تفاعل الناس مع",
     "times": "مرة.",
     "timesPeopleWere": "مرة كان الناس",

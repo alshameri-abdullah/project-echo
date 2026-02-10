@@ -12,6 +12,7 @@ const { activeCharacter } = storeToRefs(useCharacterStore());
 const { getColor } = useInteractionColors();
 
 const charName = computed(() => activeCharacter.value?.[`name_${locale.value}`] ?? activeCharacter.value?.name);
+const genderKey = computed(() => activeCharacter.value?.gender === 'male' ? 'male' : 'female');
 
 const clickSound = new Audio('/sounds/click.mp3');
 const playClick = () => clickSound.cloneNode().play();
@@ -34,7 +35,7 @@ const barSegments = [
     <div class="section-content border-b">
       <div class="border-b border-stone-300 pb-4">
         <div class="font-mono text-lg text-stone-500 lg:text-2xl">
-          {{ t('stats.thisIs') }}
+          {{ t(`stats.thisIs_${genderKey}`) }}
           <span class="font-semibold text-black">
             {{ charName ?? t('stats.characterFallback') }} </span
           >. {{ t('stats.interactedWith') }}
